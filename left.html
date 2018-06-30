@@ -1,0 +1,62 @@
+<html>
+<head>
+	<title>Left</title>
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+	<div id="list">
+		<table width="90%" border="0" cellspacing="0" cellpadding="0" align="center">
+			<tr>
+				<td>
+					<img src="images/1.jpg" height="10%" style="border-radius:10px;vertical-align:middle; margin-top:5px" alt="无法显示图片">
+					<b>孙振环</span>
+                    <button @click="logout()" class="btn btn-danger" style="margin-left:19px;">注销</button>
+                    </b>
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<hr>
+				</td>
+			</tr>
+			<tr>
+				<td height="60">
+					<a href="todolist.html" target="mainFrame"><img src="images/2.jpg" width="30" height="30">&nbsp;神奇宝贝</a>
+				</td>
+			</tr>
+			<tr>
+				<td height="60">
+					<a href="todolist.html" target="mainFrame"><img src="images/3.jpg" width="30" height="30">&nbsp;通道</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<hr>
+				</td>
+			</tr>
+			<tr v-for="(list,index) in lists">
+				<td height="60">
+					<a :href="list.listhref" target="mainFrame" @click="currentlist=list">
+						{{ list.listname }}
+					</a>
+				</td>
+				<td>
+					<button title="删除" @click="deleteList(index)" class="btn">删除</button>
+				</td>
+			</tr>
+			<tr>
+				<td height="60">
+					<input v-model="newList.listname" class="form-control">
+				</td>
+				<td>
+					<button @click="createList()" class="btn">新建清单</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script src="vue.js"></script>
+	<script src="left.js"></script>
+</body>
+</html>

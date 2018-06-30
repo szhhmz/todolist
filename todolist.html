@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>todolist</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div class="page-top">
+    <div class="page-content">
+        <h2 align="center">神奇宝贝训练计划系统</h2>
+    </div>
+</div>
+<div class="main">
+    <h3 class="big-title">添加训练计划</h3>
+    <input placeholder=""
+            class="task-input"
+            type="text"
+            v-model="todo"
+            v-on:keyup.enter="addTodo"
+     />
+    <ul class="task-count"  v-show="list.length">
+        <li>{{ noCheckeLength }}个训练任务未完成</li><!--渲染数据-->
+        <li class="action">
+            <a :class="{active:visibility==='all'}" href="#all">所有训练任务</a>
+            <a href="#unfinished" :class="{active:visibility==='unfinished'}">未完成的训练</a>
+            <a href="#finished" :class="{active:visibility==='finished'}">完成的训练</a>
+        </li>
+    </ul>
+    <h3 class="big-title">训练计划列表</h3>
+    <div class="tasks">
+        <span class="no-task-tip" v-show="!list.length">无训练任务</span>
+        <ul class="todo-list">
+            <li class="todo" :class="{completed:item.isChecked,editing:item===edtorTodos}" v-for="item in filteredList">
+                <div class="view">
+                    <input class="toggle" type="checkbox" v-model="item.isChecked" />
+                    <label @dblclick="edtorTodo(item)">{{item.title}}</label>
+                    <button class="destroy" @click="deleteTodo(item)"></button>
+                </div>
+                <input v-focus="edtorTodos===item" class="edit" type="text" v-model="item.title" @blur="edtorTodoed(item)" @keyup.enter="edtorTodoed(item)" @keyup.esc="cancelTodo(item)" />
+            </li>
+        </ul>
+    </div>
+    <div class="sort">
+    	<button class="btn btn-primary" @click="sort_list()">排序</button>
+    </div>
+    <div class="container-fluid">
+		<div class="row-fluid">
+			<div>
+				<form> 
+					<input type="text" class="form-control" placeholder="搜索" style="margin-top:20px; width:200px;" v-model="searchValue"> 
+                    <!-- <button type="submit" class="btn btn-success" style="margin-top:20px;" @click="search_list()">Search</button> -->
+				    <div v-for="item in list" v-if="item.title.indexOf(searchValue)!==-1 && searchValue!=''">
+                        {{ item.title }}
+                    </div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="./vue.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
